@@ -1,0 +1,122 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "postUpdateOptions": [
+        "yarnDedupeHighest"
+    ],
+    "packageRules": [{
+        "matchDatasources": [
+            "npm"
+        ],
+        "matchSourceUrls": [
+            "https://github.com/backstage/backstage"
+        ],
+        "enabled": false
+    },
+    {
+        "matchPackageNames": [
+            "backstage/backstage"
+        ],
+        "postUpgradeTasks": {
+        "commands": [
+            "yarn dlx -p @backstage/cli backstage-cli versions:bump --release {{{newValue}}}"
+        ],
+        "workingDirTemplate": "{{{packageFileDir}}}",
+        "executionMode": "branch"
+        }
+    },
+    {
+      "groupName": "Backstage (community-plugins)",
+      "matchSourceUrls": [
+        "https://github.com/backstage/community-plugins"
+      ]
+    },
+    {
+      "groupName": "Backstage (backstage)",
+      "matchSourceUrls": [
+        "https://github.com/backstage/backstage/"
+      ]
+    },
+    {
+      "allowedVersions": "<5.0.0",
+      "description": [
+        "Do not upgrade to Express v5",
+        "https://github.com/backstage/backstage/issues/27808",
+        "src: https://github.com/secustor/backstage-renovate-config/blob/9d928870b112759c9ac00ab690a92670bc45ac11/presets/unsupported-framework-upgrades.json"
+      ],
+      "matchDatasources": ["npm"],
+      "matchPackageNames": [
+        "express",
+        "@types/express",
+        "@types/express-serve-static-core"
+      ]
+    },
+    {
+      "allowedVersions": "<19.0.0",
+      "description": [
+        "Do not upgrade to react / react-dom >=19",
+        "https://github.com/backstage/backstage/issues/28080"
+      ],
+      "matchPackageNames": [
+        "react",
+        "react-dom"
+    ]
+    },
+    {
+      "allowedVersions": "<7.0.0",
+      "description": [
+        "Do not upgrade to React Router v7",
+        "https://github.com/backstage/backstage/issues/27927",
+        "src: https://github.com/secustor/backstage-renovate-config/blob/9d928870b112759c9ac00ab690a92670bc45ac11/presets/unsupported-framework-upgrades.json"
+      ],
+      "matchSourceUrls": ["https://github.com/remix-run/react-router"]
+    },
+    {
+      "allowedVersions": "<9.0.0",
+      "description": [
+        "Do not upgrade to ESLint v9",
+        "https://github.com/backstage/backstage/issues/28734",
+        "src: https://github.com/secustor/backstage-renovate-config/blob/9d928870b112759c9ac00ab690a92670bc45ac11/presets/unsupported-framework-upgrades.json"
+      ],
+      "extends": ["monorepo:eslint"]
+    },
+    {
+      "allowedVersions": "<30.0.0",
+      "description": [
+        "Do not upgrade to Jest v30",
+        "https://github.com/backstage/backstage/issues/30208",
+        "src: https://github.com/secustor/backstage-renovate-config/blob/9d928870b112759c9ac00ab690a92670bc45ac11/presets/unsupported-framework-upgrades.json"
+      ],
+      "matchSourceUrls": ["https://github.com/jestjs/jest"]
+    },
+    {
+      "allowedVersions": "<4.0.0",
+      "description": [
+        "Do not upgrade to Zod v4",
+        "https://github.com/backstage/backstage/issues/30607",
+        "src: https://github.com/secustor/backstage-renovate-config/blob/9d928870b112759c9ac00ab690a92670bc45ac11/presets/unsupported-framework-upgrades.json"
+      ],
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["zod"]
+    },
+    {
+      "allowedVersions": "<23.0.0",
+      "description": [
+        "Do not upgrade Dockerfile to v22+. Backstage currently supports 20 and 22",
+        "https://backstage.io/docs/overview/versioning-policy/#:~:text=Based%20on%20the%20above%20Backstage%20supports%20Node.js%2020%20and%2022%20as%20of%20the%201.33.0%20release."
+      ],
+      "matchPackageNames": [
+        "node"
+    ]
+    }],
+    "customManagers": [{
+        "customType": "regex",
+        "datasourceTemplate": "github-releases",
+        "depNameTemplate": "backstage/backstage",
+        "managerFilePatterns": [
+            "backstage.json"
+        ],
+        "matchStrings": [
+            "\\s?\\s?\"?version\":\\s\"(?<version>[\\w+\\.\\-]*)\"?"
+        ]
+    }]
+}

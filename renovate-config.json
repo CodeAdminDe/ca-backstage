@@ -1,0 +1,37 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": "github>CodeAdminDe/ca-backstage:renovate-app-backstage",
+    "branchPrefix": "renovate/",
+    "username": "renovate-release",
+    "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+    "onboarding": true,
+    "requireConfig": "optional",
+    "platform": "github",
+    "forkProcessing": "enabled",
+    "repositories": [
+        "codeadminde/ca-backstage"
+    ],
+    "automergeType": "pr",
+    "ignoreTests": true,
+    "allowedCommands": [
+        "^yarn dlx -p @backstage/cli backstage-cli versions:bump --release [\\w+\\.\\-]+$"
+    ],
+    "packageRules": [
+        {
+            "matchFileNames": [
+                "*"
+            ],
+            "bumpVersions": [
+                {
+                    "filePatterns": [
+                        ".release-version"
+                    ],
+                    "matchStrings": [
+                        "#\\s?renovate: bumpVersion\\s(appVersion|version):\\s?\\\"?(?<version>[\\w+\\.\\-]*)\"?"
+                    ],
+                    "bumpType": "{{#if isPatch}}patch{{else}}{{#if isMajor}}major{{else}}minor{{/if}}{{/if}}"
+                }
+            ]
+        }
+    ]
+}
