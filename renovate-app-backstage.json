@@ -25,6 +25,18 @@
         }
     },
     {
+      "groupName": "definitelyTyped",
+      "matchPackageNames": [
+        "@types/**"
+      ]
+    },
+    {
+      "groupName": "testingLibraries",
+      "matchPackageNames": [
+        "@testing-library/**"
+      ]
+    },
+    {
       "groupName": "Backstage (community-plugins)",
       "matchSourceUrls": [
         "https://github.com/backstage/community-plugins"
@@ -57,8 +69,8 @@
         "https://github.com/backstage/backstage/issues/28080"
       ],
       "matchPackageNames": [
-        "react",
-        "react-dom"
+        "@types/react-dom",
+        "@types/react"
     ]
     },
     {
