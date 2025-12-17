@@ -70,7 +70,9 @@
       ],
       "matchPackageNames": [
         "@types/react-dom",
-        "@types/react"
+        "@types/react",
+        "react",
+        "react-dom"
     ]
     },
     {
