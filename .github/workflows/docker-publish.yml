@@ -85,7 +85,7 @@ jobs:
             type=ref,event=branch,enable=true,priority=600
             type=ref,event=tag,enable=true,priority=600
             type=ref,event=pr,prefix=pr-,enable=true,priority=600
-            type=raw,value=latest,enable=true,priority=600
+            # type=raw,value=latest,enable=true,priority=600
             # set latest tag for main branch
             #type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
@@ -99,11 +99,12 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64, linux/arm, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-
+          
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
       # repository is public to avoid leaking data.  If you would like to publish
