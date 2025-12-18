@@ -58,7 +58,7 @@ jobs:
       - name: Create GitHub Tag
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            if [ $(git tag -l "v${{ env.CURRENT_VERSION }}") ]; then
+            if [ git rev-parse -q --verify "refs/tags/v${{ env.CURRENT_VERSION }}" > /dev/null ]; then
               echo "Skipped: Create GitHub Tag (tag already present)"
             else
               git tag "v${{ env.CURRENT_VERSION }}"
