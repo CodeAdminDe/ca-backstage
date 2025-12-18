@@ -58,12 +58,8 @@ jobs:
       - name: Create GitHub Tag
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            if [ git rev-parse -q --verify "refs/tags/v${{ env.CURRENT_VERSION }}" > /dev/null ]; then
-              echo "Skipped: Create GitHub Tag (tag already present)"
-            else
-              git tag "v${{ env.CURRENT_VERSION }}"
-              git push origin --tags
-            fi
+            git tag "v${{ env.CURRENT_VERSION }}"
+            git push origin --tags
           fi
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
